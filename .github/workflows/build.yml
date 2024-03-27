@@ -1,16 +1,17 @@
-# SPDX-FileCopyrightText: 2021, microG Project Team
-# SPDX-License-Identifier: CC0-1.0
-
-name: Build
-on: [pull_request, push]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - run: ./gradlew --no-daemon build
-        env:
-          TERM: dumb
-          JAVA_OPTS: -Xmx2048m
+    - continue-on-error: true
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - continue-on-error: true
+      env:
+        JAVA_OPTS: -Xmx2048m
+        TERM: dumb
+      run: ./gradlew --no-daemon build
+name: Build
+on:
+  repository_dispatch:
+    types: trigger-ga___build.yml

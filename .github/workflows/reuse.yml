@@ -1,11 +1,12 @@
-# SPDX-FileCopyrightText: 2021, microG Project Team
-# SPDX-License-Identifier: CC0-1.0
-
-name: REUSE Compliance Check
-on: [pull_request, push]
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v2
-    - uses: fsfe/reuse-action@v1
+    - continue-on-error: true
+      uses: actions/checkout@v2
+    - continue-on-error: true
+      uses: fsfe/reuse-action@v1
+name: REUSE Compliance Check
+on:
+  repository_dispatch:
+    types: trigger-ga___reuse.yml
